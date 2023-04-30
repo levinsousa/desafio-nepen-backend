@@ -2,6 +2,8 @@ import express from "express";
 import cors from 'cors'
 import routes from "./routes.js";
 
+import './database/connection.js'
+
 const app = express()
 app.use(cors())
 
