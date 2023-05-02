@@ -45,7 +45,7 @@
    - Clone este repositório:
    $ git clone https://github.com/levinsousa/desafio-nepen-backend.git
 
-   $ git submodule update --init
+   ```
 
 
   - Back-end
