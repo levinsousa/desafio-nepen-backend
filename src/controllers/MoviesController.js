@@ -5,9 +5,15 @@ export default{
   async getMovies(req, res){
     // #swagger.tags = ['Filmes']
     // #swagger.summary = 'Retorna todos os filmes'
+    const { search } = req.query
     try {
-      const allMovies = await Movie.find()
-      res.status(201).json(allMovies)
+      if(!search){
+        const allMovies = await Movie.find()
+        res.status(200).json(allMovies)  
+        return
+      }
+      const allMovies = await Movie.find({title: {'$regex':search}})
+      res.status(200).json(allMovies)
     } catch (error) {
       res.status(500).json({error: "err"})
     }
@@ -21,7 +27,7 @@ export default{
       const oneMovie = await Movie.findOne({_id: id})
 
       if(!oneMovie){
-        res.status(201).json({
+        res.status(200).json({
           "title" : "Filme não encontrado",
           "duration" : ":/",
           "yearMovie" : 0,
@@ -31,7 +37,7 @@ export default{
         return
       }
 
-      res.status(201).json(oneMovie)
+      res.status(200).json(oneMovie)
     } catch (error) {
       res.status(500).json({error: "err"})
     }
