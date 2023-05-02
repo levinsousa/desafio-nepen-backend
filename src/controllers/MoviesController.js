@@ -3,6 +3,8 @@ import Movie from '../models/Movie.js'
 export default{
 
   async getMovies(req, res){
+    // #swagger.tags = ['Filmes']
+    // #swagger.summary = 'Retorna todos os filmes'
     try {
       const allMovies = await Movie.find()
       res.status(201).json(allMovies)
@@ -12,6 +14,8 @@ export default{
   },
 
   async getMovieId(req, res){
+    // #swagger.tags = ['Filmes']
+    // #swagger.summary = 'Retorna um filme específico'
     const id = req.params.id
     try {
       const oneMovie = await Movie.findOne({_id: id})
@@ -34,6 +38,8 @@ export default{
   },
 
   async addMovie(req, res){
+    // #swagger.tags = ['Filmes']
+    // #swagger.summary = 'Adiciona um filme'
     const { title, duration, yearMovie, description, urlPoster } = req.body
 
     const movie = {
@@ -63,6 +69,8 @@ export default{
   },
 
   async modifyMovie(req, res){
+    // #swagger.tags = ['Filmes']
+    // #swagger.summary = 'Modifica um filme específico'
     const id = req.params.id
     const { title, duration, yearMovie, description, urlPoster } = req.body
     const movie = {
@@ -89,6 +97,8 @@ export default{
   },
 
   async deleteMovie(req, res){
+    // #swagger.tags = ['Filmes']
+    // #swagger.summary = 'Deleta um filme específico'
     const id = req.params.id
 
     try {

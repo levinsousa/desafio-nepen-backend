@@ -3,6 +3,8 @@ import Comment from '../models/Comment.js'
 export default{
 
   async getAllComments(req, res){
+    // #swagger.tags = ['Comentários']
+    // #swagger.summary = 'Retorna todos os comentários'
     try {
       const allComments = await Comment.find()
       res.status(201).json(allComments)
@@ -12,9 +14,11 @@ export default{
   },
 
   async getComment(req, res){
-    const idMovie = req.params.idMovie
+    // #swagger.tags = ['Comentários']
+    // #swagger.summary = 'Retorna um comentário específico'
+    const { movieId, userId } = req.query
     try {
-      const comment = await Comment.findOne({movieId: idMovie})
+      const comment = await Comment.find({movieId, userId})
       res.status(201).json(comment)
     } catch (err) {
       res.status(500).json({error: err})
@@ -22,6 +26,8 @@ export default{
   },
 
   async addComment(req, res){
+    // #swagger.tags = ['Comentários']
+    // #swagger.summary = 'Adiciona um comentário'
     const { comment, userId, movieId } = req.body
 
     const commentToAdd = {
@@ -29,22 +35,7 @@ export default{
       userId,
       movieId
     }
-
-    // if(!comment){
-    //   res.status(422).json({message: "O comentario não pode estar em branco"})
-    //   return
-    // }
-
-    // if(!userId){
-    //   res.status(422).json({message: "O comentario deve estar associado a um usuário"})
-    //   return
-    // }
-
-    // if(!movieId){
-    //   res.status(422).json({message: "O comentario deve estar associado a um filme"})
-    //   return
-    // }
-
+    
     try{
       Comment.create(commentToAdd)
       res.status(201).json({message: "Comentário adicionado com sucesso"})
@@ -54,6 +45,8 @@ export default{
   },
 
   async modifyComment(req, res){
+    // #swagger.tags = ['Comentários']
+    // #swagger.summary = 'Modifica um comentário específico'
     const id = req.params.id
     const { comment, userId, movieId } = req.body
 
@@ -79,6 +72,8 @@ export default{
   },
 
   async deleteComment(req, res){
+    // #swagger.tags = ['Comentários']
+    // #swagger.summary = 'Deleta um comentário específico'
     const id = req.params.id
 
     try {
