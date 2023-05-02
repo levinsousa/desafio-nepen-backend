@@ -12,7 +12,7 @@ export default{
         res.status(200).json(allMovies)  
         return
       }
-      const allMovies = await Movie.find({title: {'$regex':search}})
+      const allMovies = await Movie.find({title: {'$regex':search,'$options': 'xi'}})
       res.status(200).json(allMovies)
     } catch (error) {
       res.status(500).json({error: "err"})
